@@ -10,9 +10,9 @@ terraform {
 
 provider "aws" {}
 
-# variable "tags" {}
+variable "tags" {}
 
-# module "hello" {
-#   source = "./lambda/hello"
-#   tags   = var.tags
-# }
+module "hello" {
+  source = "./lambda/hello"
+  tags   = var.tags
+}
