@@ -12,7 +12,7 @@ resource "null_resource" "lambda_build" {
   #   })
   # }
   provisioner "local-exec" {
-    command = "cd ${path.module};wget https://go.dev/dl/go1.19.2.linux-amd64.tar.gz;tar -xzf go1.19.2.linux-amd64.tar.gz -C .local;cd .local/go/bin;pwd;ls -la;go version"
+    command = "cd ${path.module};wget https://go.dev/dl/go1.19.2.linux-amd64.tar.gz;tar -xzf go1.19.2.linux-amd64.tar.gz -C .;cd go/bin;pwd;ls -la;echo $PATH"
     # command = "cat /etc/*release* go build -o ../bin/handler"
 
   }
