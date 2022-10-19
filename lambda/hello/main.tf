@@ -32,7 +32,7 @@ data "archive_file" "lambda_go_zip" {
 module "lambda_function" {
   source        = "terraform-aws-modules/lambda/aws"
   function_name = "handler"
-  description   = "testing go function"go build -o ../bin/handler
+  description   = "testing go function"
   handler       = "handler.lambda_handler"
   runtime       = "go1.x"
 
