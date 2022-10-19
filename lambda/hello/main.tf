@@ -1,16 +1,16 @@
 resource "null_resource" "lambda_build" {
-  triggers = {
-    always_run = "${timestamp()}"
-  }
+  # triggers = {
+  #   always_run = "${timestamp()}"
+  # }
   # triggers = {
   #   on_every_apply = uuid()
   # }
-  # triggers = {
-  #   file_hashes = jsonencode({
-  #     for fn in fileset("${path.module}/src", "**") :
-  #     fn => filesha256("${path.module}/src/${fn}")
-  #   })
-  # }
+  triggers = {
+    file_hashes = jsonencode({
+      for fn in fileset("${path.module}/src", "**") :
+      fn => filesha256("${path.module}/src/${fn}")
+    })
+  }
   provisioner "local-exec" {
     command = "cd ${path.module};wget https://go.dev/dl/go1.19.2.linux-amd64.tar.gz;tar -xzf go1.19.2.linux-amd64.tar.gz -C .;cd go/bin;export PATH=$PATH:$(pwd);go version;cd ../../src;go build -o ../bin/handler;cd ..;ls -la;pwd;"
     # command = "cat /etc/*release* go build -o ../bin/handler"
@@ -29,7 +29,7 @@ resource "null_resource" "lambda_build" {
 # module "lambda_function" {
 #   source        = "terraform-aws-modules/lambda/aws"
 #   function_name = "handler"
-#   description   = "testing go function"
+#   description   = "testing go function"go build -o ../bin/handler
 #   handler       = "handler.lambda_handler"
 #   runtime       = "go1.x"
 
